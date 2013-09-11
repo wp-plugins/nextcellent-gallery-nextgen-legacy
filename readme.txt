@@ -1,4 +1,4 @@
-=== NextCellent Gallery ===
+=== NextCellent Gallery - NextGEN Legacy ===
 Contributors: WPGetReady
 Tags:gallery,image,images,photo,photos,picture,pictures,slideshow,flash,media,thumbnails,photo-albums,NextGEN-gallery,NextGEN,nextcellent-gallery,nextcellent
 Requires at least: 3.5
