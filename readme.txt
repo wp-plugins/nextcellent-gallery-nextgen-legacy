@@ -19,6 +19,8 @@ VERY IMPORTANT: Read ON!
 
 - Third, READ THE FAQ!!! Issues for failing to read the FAQ will be IGNORED!!!
 
+- If you like it, please spread the word and rate it accordingly. I guess a lot of annoyed users can take advantage of NextCellent. Thank you!
+
 **NextCellent Gallery provides backward compatibility for older NextGEN until version 1.9.13** . 
 
 = So, who is going to use this plugin? =
