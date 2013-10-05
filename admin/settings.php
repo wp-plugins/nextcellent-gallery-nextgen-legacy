@@ -103,14 +103,6 @@ jQuery(document).ready(function($) {
 class nggOptions {
 
     /**
-     * PHP4 compatibility layer for calling the PHP5 constructor.
-     *
-     */
-    function nggOptions() {
-        return $this->__construct();
-    }
-
-    /**
      * nggOptions::__construct()
      *
      * @return void

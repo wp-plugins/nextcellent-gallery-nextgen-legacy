@@ -10,10 +10,19 @@ License: GPLv2
 
 = WordPress Gallery Plugin =
 
+= V1.9.15 - 03.10.2013 =
+
+ What's in it for you?
+
+* Code simplification: code supporting PHP4 has no use. Deprecated.
+* Plugin should work with PHP strict standard enabled.
+* Improper call to static functions corrected all over the code
+* Disabled donator metabox since link is dead
+
 VERY IMPORTANT: Read ON!
 -----------------------
 
-- NextCellent Gallery is based from the last stable NextGEN 1.9.13 version prior 2.x.x . If you are a new user, it is sugested to install latest NextGEN version instead this plugin. Its development is going in the right way if you are starting a new site. Even though, NextCellent development path will also work fine for you. Your choice.
+- NextCellent Gallery is based from the last stable NextGEN 1.9.13 version prior 2.x.x . If you are a new user, it is suggested to install latest NextGEN version instead this plugin. Its development is going in the right way if you are starting a new site. Even though, NextCellent development path will also work fine for you. Your choice.
 
 - Second, **this plugin WON'T WORK with NextGEN side by side**. <u>It will gracefully deactivate if detects NextGEN is working to avoid compatibility issues</u>.
 
@@ -25,7 +34,7 @@ VERY IMPORTANT: Read ON!
 
 = So, who is going to use this plugin? =
 
-- The aim of NextCellent is provide an alternative for traditional NextGEN users to keep their sites updated without breaking compatibility.  Older subplugins will be also compatible (those which were compatible with version 1.9.13 or earlier).
+- The aim of NextCellent is to provide an alternative for traditional NextGEN users to keep their sites updated without breaking compatibility.  Older subplugins will be also compatible (those which were compatible with version 1.9.13 or earlier).
 
 - Users who wants to stay working with older NextGEN version (1.9.13) until they're confident enough to make the jump to newest 2.x.x version
 
@@ -89,7 +98,7 @@ As a result, there is large and great community of users and developers, as well
 Copyright:<br>
 WpGetReady 2013<br>
 Photocrati Media 2012<br>
-Alex Rabe 2007-2011
+Alex Rabe 2007-2011<br>
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
@@ -229,7 +238,7 @@ NextCellent Plugin Shortcodes are 100% backward compatible with older NGG shortc
 
 = Are you related with Alex Rabe or PhotoCrati? =
 
-- I feel closely related with the NextGEN Community. Few months ago I choose NextGEN as essential tools for making wordpress sites. I think Alex Rabe work is great and also Photocrati's work. However, I feel there is a need to be covered between the past and present NextGEN versions and NextCellent is an alternative to most people so they can sleep with peace of mind.
+- I feel closely related with the NextGEN Community. Few months ago I choose NextGEN as essential tools for making wordpress sites. I think Alex Rabe work is great and also Photocrati's work. However, I also feel there is a need to be covered between the past and present NextGEN versions and NextCellent is an alternative to most people so they can sleep with peace of mind.
 
 = Will NextCellent continue evolving? =
 
@@ -237,7 +246,7 @@ NextCellent Plugin Shortcodes are 100% backward compatible with older NGG shortc
 
 = Will NextCellent Gallery work with my theme? =
 
-- NextCellent uses the same codebase and tries to mimic older NextGEN as much as possible. It should.
+- NextCellent uses the same codebase and tries to mimic older NextGEN as much as possible. In short, it should!
 
 = Will NextCellent work with my NextGEN Galleries? =
 
@@ -249,9 +258,9 @@ NextCellent Plugin Shortcodes are 100% backward compatible with older NGG shortc
 
 - NextCellent will inherit all the code from version 1.9.13 which is both good and bad.  
 
-= Why then the name NextCellent instead NextGEN Legacy for example? =
+Why then the name NextCellent instead NextGEN Legacy for example? =
 
-- Because I believe there is space to improve the plugin while listening the community. So it is likely this version continue evolving while NextGEN follows its own path. Can't be two plugins with same name and following different directions, can be? That would be SO confusing for Wordpress users.
+- Because I believe there is space to improve the plugin while listening the community. It is likely this version continue evolving while NextGEN follows its own path. Can't be two plugins with same name and following different directions, can be? That would be SO confusing for Wordpress users.
 
 = Will NextCellent work with new NextGEN (2.0.x) side by side? =
 
@@ -315,6 +324,12 @@ Yes, since we use Javascript rather than flash, NextCellent Gallery is compatibl
 - You should go to original NextGEN plugin to check this out. <a href="http://www.NextGEN-gallery.com/languages/" target="_blank">click here to find out more.</a>
 
 == Changelog ==
+
+= V1.9.15 - 03.10.2013 =
+* Code simplification: code supporting PHP4 has no use. Deprecated.
+* Plugin should work with PHP strict standard enabled.
+* Improper call to static functions corrected all over the code
+* Disabled donator metabox since link is dead
 
 = V1.9.14 - 01.09.2013 =
 * The plugin will deactivate if NextGEN (all versions) plugin is installed & activated

@@ -5,7 +5,7 @@ Plugin URI: http://www.wpgetready.com/nextcellent-gallery
 Description: A Photo Gallery for WordPress providing NextGEN legacy compatibility from version 1.9.13
 Author: WPGReady based on Alex Rabe & PhotoCrati work.
 Author URI: http://www.wpgetready.com
-Version: 1.9.14
+Version: 1.9.15
 
 Copyright (c) 2007-2011 by Alex Rabe & NextGEN DEV-Team
 Copyright (c) 2012 Photocrati Media
@@ -48,9 +48,10 @@ check_nextgen::nextgen_activated();
 if (!class_exists('nggLoader')) {
 	class nggLoader {
 
-		var $version     = '1.9.14';
+		var $version     = '1.9.15';
 		var $dbversion   = '1.8.1';
 		var $minimum_WP  = '3.5';
+        //TODO: to be removed next iterations, since Photocrati disabled
 		var $donators    = 'http://www.nextgen-gallery.com/donators.php';
 		var $options     = '';
 		var $manage_page;
@@ -547,8 +548,8 @@ if (!class_exists('nggLoader')) {
 			if ( $file == $this->plugin_name ) {
 				$plugin_name = plugin_basename(NGGALLERY_ABSPATH);
 				$links[] = "<a href='admin.php?page={$plugin_name}'>" . __('Overview', 'nggallery') . '</a>';
-				$links[] = '<a href="http://wordpress.org/tags/nextgen-gallery?forum_id=10">' . __('Get help', 'nggallery') . '</a>';
-				$links[] = '<a href="https://bitbucket.org/photocrati/nextgen-gallery">' . __('Contribute', 'nggallery') . '</a>';
+				$links[] = '<a href="http://wordpress.org/support/plugin/nextcellent-gallery-nextgen-legacy">' . __('Get help', 'nggallery') . '</a>';
+				//$links[] = '<a href="">' . __('Contribute', 'nggallery') . '</a>';
 			}
 			return $links;
 		}

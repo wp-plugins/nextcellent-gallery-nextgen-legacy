@@ -50,14 +50,6 @@ class nggManageAlbum {
 	var $num_albums = false;
 
 	/**
-	 * PHP4 compatibility layer for calling the PHP5 constructor.
-	 *
-	 */
-	function nggManageAlbum() {
-		return $this->__construct();
-	}
-
-	/**
 	 * Init the album output
 	 *
 	 */

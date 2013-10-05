@@ -35,14 +35,6 @@ class nggNavigation {
 	var $next = false;
 
 	/**
-	 * PHP4 compatibility layer for calling the PHP5 constructor.
-	 * 
-	 */
-	function nggNavigation() {
-		return $this->__construct();
-	}
-
-	/**
 	 * Main constructor - Does nothing.
 	 * Call create_navigation() method when you need a navigation.
 	 * 

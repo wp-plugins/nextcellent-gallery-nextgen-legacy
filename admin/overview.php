@@ -3,7 +3,8 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 
 /**
  * nggallery_admin_overview()
- *
+ * 20130410: FZSM: as part of initiative, avoid implementing spaghuetti code.
+ *                 Introducing class to deal with code and functions to provide backward compatibility 100%
  * Add the admin overview the dashboard style
  * @return mixed content
  */
@@ -85,7 +86,7 @@ function nggallery_admin_overview()  {
  *
  */
 add_meta_box('dashboard_right_now', __('Welcome to NextCellent Gallery !', 'nggallery'), 'ngg_overview_right_now', 'ngg_overview', 'left', 'core');
-add_meta_box('ngg_meta_box', __('Do you like this Plugin?', 'nggallery'), 'ngg_likeThisMetaBox', 'ngg_overview', 'right', 'core');
+add_meta_box('ngg_meta_box', __('Help me help YOU!', 'nggallery'), 'nextcellent_overview::likeThisMetaBox', 'ngg_overview', 'right', 'core');
 if ( !(get_locale() == 'en_US') )
 	add_meta_box('ngg_locale', __('Translation', 'nggallery'), 'ngg_widget_locale', 'ngg_overview', 'right', 'core');
 add_meta_box('dashboard_primary', __('Latest News', 'nggallery'), 'ngg_widget_overview_news', 'ngg_overview', 'left', 'core');
@@ -96,32 +97,7 @@ if ( !is_multisite() || is_super_admin() ) {
     add_meta_box('dashboard_plugins', __('Related plugins', 'nggallery'), 'ngg_widget_related_plugins', 'ngg_overview', 'left', 'core');
 }
 
-function ngg_likeThisMetaBox() {
 
-	echo '<p>';
-    echo sprintf(__('This plugin is primarily developed, maintained, supported and documented by <a href="%s" target="_blank">Photocrati Media</a> with a lot of love & effort. Any kind of contribution would be highly appreciated. Thanks!', 'nggallery'), 'http://www.photocrati.com/');
-	echo '</p><ul>';
-
-	$url = 'http://wordpress.org/extend/plugins/nextgen-gallery/' ;
-	echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/icon-rating.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
-	_e('Give it a good rating on WordPress.org', 'nggallery');
-	echo "</a></li>";
-
-	$url = 'http://www.nextgen-gallery.com';
-	echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/nextgen.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
-	_e("Visit the plugin homepage", 'nggallery');
-	echo "</a></li>";
-
-	$url = 'http://www.nextgen-gallery.com/languages/';
-	echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/icon-translate.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
-	_e("Help translating it", 'nggallery');
-	echo "</a></li>";
-
-	echo '</ul>';
-
-	echo '
-	<div class="social" style="text-align:center;margin:15px 0 10px 0;"><span class="social" style="margin-right:5px;"><a target="_blank" href="http://twitter.com/NextGENGallery"><img title="Follow NextGEN on Twitter" alt="Twitter" src="' . NGGALLERY_URLPATH . 'admin/images/twitter.png"></a></span><span class="social" style="margin-right:5px;"><a target="_blank" href="http://www.facebook.com/NextGENGallery"><img title="Like NextGEN on Facebook" alt="Facebook" src="' . NGGALLERY_URLPATH . 'admin/images/facebook.png"></a></span><span class="social"><a target="_blank" href="http://plus.google.com/101643895780935290171"><img title="Add NextGEN to your circles" alt="GooglePlus" src="' . NGGALLERY_URLPATH . 'admin/images/googleplus.png"></a></span></div>';
-}
 
 /**
  * Ajax Check for conflict with other plugins/themes
@@ -412,7 +388,7 @@ function ngg_overview_news(){
 ?>
 <div class="rss-widget">
     <?php
-    $rss = @fetch_feed( 'http://feeds.feedburner.com/nextgen-gallery' );
+    $rss = @fetch_feed( 'http://wpgetready.com/feed/' );
 
     if ( is_object($rss) ) {
 
@@ -784,71 +760,107 @@ function ngg_get_phpinfo() {
 function ngg_widget_related_plugins() {
     echo '<p class="widget-loading hide-if-no-js">' . __( 'Loading&#8230;' ) . '</p><p class="describe hide-if-js">' . __('This widget requires JavaScript.') . '</p>';
 }
+
+/**
+ * Backward compatibility, scheduled to delete on future iteration.
+ */
 function ngg_related_plugins() {
-	include(ABSPATH . 'wp-admin/includes/plugin-install.php');
+    nextcellent_overview::related_plugins() ;
+}
 
-    if ( false === ( $api = get_transient( 'ngg_related_plugins' ) ) ) {
-    	// this api sucks , tags will not be used in the correct way : nextgen-gallery cannot be searched
-    	$api = plugins_api('query_plugins', array('search' => 'nextgen') );
+/**
+ * Provide utilities functions for creating metaboxes on overview
+ * Class nextcellent_overview
+ */
+class nextcellent_overview {
+    const URL_WPGETREADY = 'http://www.wpgetready.com';
 
-    	if ( is_wp_error($api) )
-            return;
+    /**
+     * Display a list of related plugins, gathered from Wordpress Repository
+     * Optional parameter to display more or less plugins.
+     * To improve: filter obsolete plugins (last_updated less than two years from now)
+     */
+    static function related_plugins($how_many=4) {
+        include(ABSPATH . 'wp-admin/includes/plugin-install.php');
+        //If transient vaporized, refresh it
+        if ( false === ( $api = get_transient( 'ngg_related_plugins' ) ) ) {
+            // Adittional info http://dd32.id.au/projects/wordpressorg-plugin-information-api-docs/
+            $api = plugins_api('query_plugins', array('search' => 'nextgen') );
+            if ( is_wp_error($api) ) return;
+            set_transient( 'ngg_related_plugins', $api, 60*60*24 ); //enable to check within a day.
+        }
 
-        set_transient( 'ngg_related_plugins', $api, 60*60*24 );
-    }
-
-  echo '<div style="margin-bottom:10px;padding:8px;font-size:110%;background:#eebbaa;"><b>Note</b>: these plugins are provided by third parties and are <b>NOT</b> supported by Photocrati Media in any way</div>';
-
-	// don't show my own plugin :-) and some other plugins, which come up with the search result
-	$blacklist = array(
-		'nextgen-gallery',
-		'galleria-wp',
-		'photosmash-galleries',
-		'flash-album-gallery',
-		'events-calendar',
-		'widgets',
-		'side-content',
-		'featurific-for-wordpress',
-		'smooth-gallery-replacement',
-		'livesig',
-		'wordpress-gallery-slideshow',
-		'nkmimagefield',
-		'nextgen-ajax',
-        'projectmanager'
-	);
+        echo '<div style="margin-bottom:10px;padding:8px;font-size:110%;background:#eebbaa;"><b>Note</b>: third parties plugins compatible with NGG. Be aware that NextCellent cannot provide 100% compatibility with it</div>';
+        //List of suppressed plugin on the list.
+        $blacklist = array('nextgen-gallery','nextcellent-gallery-nextgen-legacy');
 
 	$i = 0;
-	while ( $i < 4 ) {
+	while ( $i < $how_many ) {
 
-		// pick them randomly
-		if ( 0 == count($api->plugins) )
-			return;
+        // pick them randomly
+        if ( 0 == count($api->plugins) ) return;
 
-		$key = array_rand($api->plugins);
-		$plugin = $api->plugins[$key];
+        $key = array_rand($api->plugins);
+        $plugin = $api->plugins[$key];
 
-		// don't forget to remove them
-		unset($api->plugins[$key]);
+        // don't forget to remove them
+        unset($api->plugins[$key]);
 
-		if ( !isset($plugin->name) )
-			continue;
+        if ( !isset($plugin->name) ) continue;
 
-		if ( in_array($plugin->slug , $blacklist ) )
-			continue;
+        if ( in_array($plugin->slug , $blacklist ) ) continue;
 
-		$link   = esc_url( $plugin->homepage );
-		$title  = esc_html( $plugin->name );
+        $link   = esc_url( $plugin->homepage );
+        $title  = esc_html( $plugin->name );
 
-		$description = esc_html( strip_tags(@html_entity_decode($plugin->short_description, ENT_QUOTES, get_option('blog_charset'))) );
+        $description = esc_html( strip_tags(@html_entity_decode($plugin->short_description, ENT_QUOTES, get_option('blog_charset'))) );
 
-		$ilink = wp_nonce_url('plugin-install.php?tab=plugin-information&plugin=' . $plugin->slug, 'install-plugin_' . $plugin->slug) .
-							'&amp;TB_iframe=true&amp;width=600&amp;height=800';
+        $ilink = wp_nonce_url('plugin-install.php?tab=plugin-information&plugin=' . $plugin->slug, 'install-plugin_' . $plugin->slug) .
+            '&amp;TB_iframe=true&amp;width=600&amp;height=800';
 
-		echo "<h5><a href='{$link}' target='_blank'>{$title}</a></h5>&nbsp;<span>(<a href='$ilink' class='thickbox' title='$title'>" . __( 'Install' ) . "</a>)</span>\n";
-		echo "<p>$description<strong> " . __( 'Author' ) . " : </strong>$plugin->author</p>\n";
+        echo "<h5><a href='{$link}' target='_blank'>{$title}</a></h5>&nbsp;<span>(<a href='$ilink' class='thickbox' title='$title'>" . __( 'Install' ) . "</a>)</span>\n";
+        echo "<p>$description<strong> " . __( 'Author' ) . " : </strong>$plugin->author</p>\n";
 
-		$i++;
-	}
+        $i++;
+    }
 
 }
+
+
+    /**
+     * Like Metabox over right
+     */
+    static function likeThisMetaBox() {
+
+        echo '<p>';
+        echo sprintf(__('This plugin is a branch from NGG stable version 1.9.13.<br> Developed & maintained by <a href="%s" target="_blank">WPGetReady.com</a>', 'nggallery'), self::URL_WPGETREADY);
+
+        echo '</p><ul>';
+
+        $url = 'wordpress.org/plugins/nextcellent-gallery-nextgen-legacy/' ;
+        echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/icon-rating.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
+        _e('Please contribute it giving this plugin a good rate! Thank you!!!', 'nggallery');
+        echo "</a></li>";
+
+        $url = self::URL_WPGETREADY;
+        echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/nextgen.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
+        _e("Visit the plugin homepage", 'nggallery');
+        echo "</a></li>";
+/*
+        $url = 'http://www.nextgen-gallery.com/languages/';
+        echo "<li style='padding-left: 38px; background:transparent url(" . NGGALLERY_URLPATH . "admin/images/icon-translate.png ) no-repeat scroll center left; background-position: 16px 50%; text-decoration: none;'><a href='{$url}' target='_blank'>";
+        _e("Help translating it", 'nggallery');
+        echo "</a></li>";
+*/
+
+        echo '</ul>';
+
+        /*
+        echo '
+	<div class="social" style="text-align:center;margin:15px 0 10px 0;"><span class="social" style="margin-right:5px;"><a target="_blank" href="http://twitter.com/NextGENGallery"><img title="Follow NextGEN on Twitter" alt="Twitter" src="' . NGGALLERY_URLPATH . 'admin/images/twitter.png"></a></span><span class="social" style="margin-right:5px;"><a target="_blank" href="http://www.facebook.com/NextGENGallery"><img title="Like NextGEN on Facebook" alt="Facebook" src="' . NGGALLERY_URLPATH . 'admin/images/facebook.png"></a></span><span class="social"><a target="_blank" href="http://plus.google.com/101643895780935290171"><img title="Add NextGEN to your circles" alt="GooglePlus" src="' . NGGALLERY_URLPATH . 'admin/images/googleplus.png"></a></span></div>';
+        */
+    }
+}
+
+
 ?>

@@ -62,14 +62,6 @@ class ngg_locale {
     var $repsonse = '';
 
     /**
-     * PHP4 compatibility layer for calling the PHP5 constructor.
-     * 
-     */
-    function install_locale() {
-        return $this->__construct();
-    }
-
-    /**
      * Init the Database Abstraction layer for NextGEN Gallery
      * 
      */ 

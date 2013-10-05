@@ -46,14 +46,6 @@ class nggdb {
     var $paged = false;
 
     /**
-     * PHP4 compatibility layer for calling the PHP5 constructor.
-     *
-     */
-    function nggdb() {
-        return $this->__construct();
-    }
-
-    /**
      * Init the Database Abstraction layer for NextGEN Gallery
      *
      */

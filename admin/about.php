@@ -10,13 +10,7 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
     <?php screen_icon( 'nextgen-gallery' ); ?>
 	<h2><?php _e('Copyright notes / Credits', 'nggallery') ;?></h2>
 	<div id="poststuff">
-		<div class="postbox">
-		    <h3 class="hndle"><span><?php _e('NextCellent', 'nggallery'); ?></span></h3>
-		    <div class="inside">
-				<p><?php _e('NextCellent Gallery is based on code due by <a href="http://www.photocrati.com" target="_blank">Photocrati Media</a>. We\'d like to offer a special thanks to Alex Rabe, who first developed the plugin and maintained it through 2011. There are many others who have made contributions:', 'nggallery') ;?></p>
-				<p><?php ngg_list_contributors(); ?></p>
-			</div>
-		</div>
+
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('Contributors / Tribute to', 'nggallery'); ?></span></h3>
 		    <div class="inside">
@@ -31,9 +25,16 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 				<li><a href="http://field2.com" target="_blank">Ben Dunkle</a> <?php _e('for the Gallery Icon', 'nggallery') ;?></li>
 				<li><a href="http://watermark.malcherek.com/" target="_blank">Marek Malcherek</a> <?php _e('for the Watermark plugin', 'nggallery') ;?></li>
 				</ul>
-				<p><?php _e('If you don\'t see your name on this list and we\'ve integrated some of your code into the plugin, don\'t hesitate to email us.', 'nggallery') ;?></p>
+				<p><?php _e('If you don\'t see your name on this list and we\'ve integrated some of your code into the plugin, don\'t hesitate to email me.', 'nggallery') ;?></p>
 			</div>
 		</div>
+        <div class="postbox">
+            <h3 class="hndle"><span><?php _e('NextCellent', 'nggallery'); ?></span></h3>
+            <div class="inside">
+                <p><?php _e('NextCellent Gallery is based on code originally thanks to Alex Rabe who maintained it through 2011. Special thanks to Photocrati Media which followed the work.', 'nggallery') ;?></p>
+                <p><?php ngg_list_contributors(); ?></p>
+            </div>
+        </div>
 		<div class="postbox">
 			<h3 class="hndle"><span><?php _e('How to support ?', 'nggallery'); ?></span></h3>
 			<div class="inside">
@@ -45,18 +46,24 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 				</ul>
 			</div>
 		</div>
-		<div class="postbox" id="donators">
-			<h3 class="hndle"><span><?php _e('Thanks!', 'nggallery'); ?></span></h3>
-			<div class="inside">
-				<p><?php _e('We would like to thank the following people who have supported the NextGEN Gallery plugin:', 'nggallery'); ?></p>
-				<p><a href="http://www.boelinger.com/heike/" target="_blank">HEIKE</a>, <?php ngg_list_support(); ?></p>
-			</div>
-		</div>
+
 	</div>
 	</div>
 
 	<?php
 }
+
+/*
+20131004: Disabled by Photocrati. There is no more ngg_list_support
+<div class="postbox" id="donators">
+<h3 class="hndle"><span><?php _e('Thanks!', 'nggallery'); ?></span></h3>
+<div class="inside">
+<p><?php _e('We would like to thank the following people who have supported the NextGEN Gallery plugin:', 'nggallery'); ?></p>
+<p><a href="http://www.boelinger.com/heike/" target="_blank">HEIKE</a>, < ? php ngg_list_support(); ? ></p>
+</div>
+</div>
+
+ */
 
 function ngg_list_contributors()	{
 /* The list of my contributors. Thanks to all of them !*/
@@ -139,6 +146,9 @@ function ngg_list_contributors()	{
 	}
 }
 
+/**
+ * 20131004: Deprecated since this list dissapear.
+ */
 function ngg_list_support()	{
 /* The list of my supporters. Thanks to all of them !*/
 

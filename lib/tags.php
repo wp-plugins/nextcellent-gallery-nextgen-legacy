@@ -254,9 +254,9 @@ class nggTags {
 	}
 
 	/**
-	 *
+	 * 20131004: corrected to static to avoid error over strict standards
 	 */
-	function find_tags( $args = '', $skip_cache = false ) {
+	static function find_tags( $args = '', $skip_cache = false ) {
 		$taxonomy = 'ngg_tag';
 
 		if ( $skip_cache == true ) {

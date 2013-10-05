@@ -232,7 +232,7 @@ add_action('wp_ajax_ngg_file_browser', 'ngg_ajax_file_browser');
  * jQuery File Tree PHP Connector
  * @author Cory S.N. LaViska - A Beautiful Site (http://abeautifulsite.net/)
  * @version 1.0.1
- *
+ * 20131003: removed PHP4 compatibility code.
  * @return string folder content
  */
 function ngg_ajax_file_browser() {
@@ -248,23 +248,6 @@ function ngg_ajax_file_browser() {
 
 	// if nonce is not correct it returns -1
 	check_ajax_referer( 'ngg-ajax', 'nonce' );
-
-    //PHP4 compat script
-	if (!function_exists('scandir')) {
-		function scandir($dir, $listDirectories = false, $skipDots = true ) {
-			$dirArray = array();
-			if ($handle = opendir($dir) ) {
-				while (false !== ($file = readdir($handle))) {
-					if (($file != '.' && $file != '..' ) || $skipDots == true) {
-						if($listDirectories == false) { if(is_dir($file)) { continue; } }
-						array_push($dirArray, basename($file) );
-					}
-				}
-				closedir($handle);
-			}
-			return $dirArray;
-		}
-	}
 
     // start from the default path
     $root = trailingslashit ( WINABSPATH );

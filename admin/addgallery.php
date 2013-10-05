@@ -4,14 +4,6 @@ if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You 
 class nggAddGallery {
 
     /**
-     * PHP4 compatibility layer for calling the PHP5 constructor.
-     *
-     */
-    function nggAddGallery() {
-        return $this->__construct();
-    }
-
-    /**
      * nggAddGallery::__construct()
      *
      * @return void
