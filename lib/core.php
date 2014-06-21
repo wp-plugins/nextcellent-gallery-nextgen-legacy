@@ -12,14 +12,14 @@ class nggGallery {
 	* Show a error messages
 	*/
 	static function show_error($message) {
-		echo '<div class="wrap"><h2></h2><div class="error" id="error"><p>' . $message . '</p></div></div>' . "\n";
+		echo '<div class="error" id="error"><p>' . $message . '</p></div>';
 	}
 
 	/**
 	* Show a system messages
 	*/
 	static function show_message($message) {
-		echo '<div class="wrap"><h2></h2><div class="updated fade" id="message"><p>' . $message . '</p></div></div>' . "\n";
+		echo '<div class="updated fade" id="message"><p>' . $message . '</p></div>';
 	}
 
 	/**
@@ -588,6 +588,17 @@ class nggGallery {
     static function nextgen_version() {
         global $ngg;
         echo apply_filters('show_nextgen_version', '<!-- <meta name="NextGEN" version="'. $ngg->version . '" /> -->' . "\n");
+    }
+
+    /**
+     * Prevents injection filtering HTML Code
+     * 20140604: Improved based on suggestions of jayque9
+     * http://wordpress.org/support/topic/prevent-removal-of-html-code-from-image-descriptions
+     */
+    static function suppress_injection
+    ($html_text) {
+        global $allowedposttags;
+        return wp_kses(stripslashes($html_text),$allowedposttags);
     }
 }
 ?>
